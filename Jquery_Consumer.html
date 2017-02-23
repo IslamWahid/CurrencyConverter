@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Currency Converter by/Islam Wahid</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        $.ajax({
+          url:"http://www.ahmedkesha.com/currency/",
+          success:function(data){
+            $(data).each(function(indx,obj){
+              $("<option value='"+obj.value+"'>"+obj.title+"</option>").appendTo("select");
+            });
+          },
+          error:function(error){
+            console.log(error);
+          }
+        }
+        )
+        // calcAmount2();
+      });
+      function calcAmount2(){
+        $("#amount2").val($("#amount1").val() * ($("#select2").val()/$("#select1").val()));
+      }
+      function calcAmount1() {
+        $("#amount1").val($("#amount2").val() * ($("#select1").val()/$("#select2").val()));
+      }
+    </script>
+  </head>
+  <body>
+    <hr>
+    <div class="">
+      <input type="number" id="amount1" value="1" min="0" onchange="calcAmount2()" onkeyup="calcAmount2()">
+      <select id="select1" name="code" onchange="calcAmount2()">
+      </select>
+    </div>
+
+    <div class="">
+      <input type="number" id="amount2" value="" min="0" onchange="calcAmount1()" onkeyup="calcAmount1()">
+      <select id="select2" name="code" onchange="calcAmount2()">
+      </select>
+    </div>
+    <hr>
+  </body>
+</html>
