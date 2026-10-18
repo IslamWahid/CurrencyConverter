@@ -16,7 +16,7 @@ final class FrameProcessor {
     init(width: Int, height: Int) {
         outputWidth = width
         outputHeight = height
-        VTPixelRotationSessionCreate(allocator: nil, pixelRotationSessionOut: &rotationSession)
+        VTPixelRotationSessionCreate(nil, &rotationSession)
         VTPixelTransferSessionCreate(allocator: nil, pixelTransferSessionOut: &transferSession)
         if let transferSession {
             VTSessionSetProperty(transferSession, key: kVTPixelTransferPropertyKey_ScalingMode,
@@ -41,7 +41,7 @@ final class FrameProcessor {
                                            height: quarterTurn ? width : height,
                                            format: format) else { return nil }
             VTSessionSetProperty(rotationSession, key: kVTPixelRotationPropertyKey_Rotation, value: rotation)
-            guard VTPixelRotationSessionRotateImage(rotationSession, from: source, to: rotated) == noErr else {
+            guard VTPixelRotationSessionRotateImage(rotationSession, source, rotated) == noErr else {
                 return nil
             }
             upright = rotated
