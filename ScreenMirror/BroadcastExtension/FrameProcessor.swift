@@ -36,7 +36,7 @@ final class FrameProcessor {
         if let rotation = Self.rotation(for: orientation), let rotationSession {
             let width = CVPixelBufferGetWidth(source)
             let height = CVPixelBufferGetHeight(source)
-            let quarterTurn = orientation == .left || orientation == .right
+            let quarterTurn = [.left, .right, .leftMirrored, .rightMirrored].contains(orientation)
             guard let rotated = makeBuffer(width: quarterTurn ? height : width,
                                            height: quarterTurn ? width : height,
                                            format: format) else { return nil }
